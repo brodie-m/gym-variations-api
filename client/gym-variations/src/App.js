@@ -9,13 +9,10 @@ function App() {
   const [plan, setPlan] = useState([])
   const [group, setGroup] = useState('')
   const [oneRepMax, setOneRepMax] = useState(0)
-
+  console.log(group,oneRepMax)
   async function handleSubmit(e) {
     try {
       e.preventDefault();
-    setGroup(e.target[0].value)
-    setOneRepMax(e.target[1].value)
-    console.log(group,oneRepMax)
     const options = {
       method: 'POST',
       headers: {
@@ -26,7 +23,6 @@ function App() {
         "oneRepMax":oneRepMax
       })
     }
-    console.log(group)
     const result = await fetch(`/api/plan/${group}`,options)
     const data = await result.json()
     setPlan(data)
@@ -49,7 +45,7 @@ function App() {
                     <Form.Label>
                         Main exercise
                     </Form.Label>
-                    <Form.Select>
+                    <Form.Select onChange={(e) => setGroup(e.target.value)}>
                         <option>bench</option>
                         <option>squat</option>
                         <option>diddy</option>
@@ -66,7 +62,7 @@ function App() {
                     <Form.Label>
                         One rep max
                     </Form.Label>
-                    <Form.Control type='number' placeholder='no judgement'>
+                    <Form.Control type='number' placeholder='no judgement' onChange={(e) => setOneRepMax(e.target.value)}>
                         
                     </Form.Control>
                     <Form.Text>

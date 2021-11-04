@@ -48,8 +48,10 @@ def plan_chest():
             
     
     return jsonify(final_exercises)
-@main.route('/api/plan/squat')
+@main.post('/api/plan/squat')
 def plan_squat():
+    data = request.get_json()
+    one_rep_max = int(data['oneRepMax'])
     squat_exercises = exercises.squat_list
     variations = exercises.squat_variations
     chosen_exercises = [*random.sample(squat_exercises.items(), k =4)]
@@ -70,12 +72,14 @@ def plan_squat():
             {"name":f'{string_to_add}{exercise[0]}',
             "sets": 3,
             "reps": num_reps,
-            "weight": f'{np.round(difficulty*one_rep_maxes["bench"]*percentage)}kg' })
+            "weight": f'{np.round(difficulty*one_rep_max*percentage)}kg' })
             
     
     return jsonify(final_exercises)
-@main.route('/api/plan/diddy')
+@main.post('/api/plan/diddy')
 def plan_diddy():
+    data = request.get_json()
+    one_rep_max = int(data['oneRepMax'])
     diddy_exercises = exercises.diddy_list
     variations = exercises.diddy_variations
     chosen_exercises = [*random.sample(diddy_exercises.items(), k =4)]
@@ -96,12 +100,14 @@ def plan_diddy():
             {"name":f'{string_to_add}{exercise[0]}',
             "sets": 3,
             "reps": num_reps,
-            "weight": f'{np.round(difficulty*one_rep_maxes["bench"]*percentage)}kg' })
+            "weight": f'{np.round(difficulty*one_rep_max*percentage)}kg' })
             
     
     return jsonify(final_exercises)
-@main.route('/api/plan/ohp')
+@main.post('/api/plan/ohp')
 def plan_ohp():
+    data = request.get_json()
+    one_rep_max = int(data['oneRepMax'])
     ohp_exercises = exercises.ohp_list
     variations = exercises.ohp_variations
     chosen_exercises = [*random.sample(ohp_exercises.items(), k =4)]
@@ -122,7 +128,7 @@ def plan_ohp():
             {"name":f'{string_to_add}{exercise[0]}',
             "sets": 3,
             "reps": num_reps,
-            "weight": f'{np.round(difficulty*one_rep_maxes["bench"]*percentage)}kg' })
+            "weight": f'{np.round(difficulty*one_rep_max*percentage)}kg' })
             
     
     return jsonify(final_exercises)
