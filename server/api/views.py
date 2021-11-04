@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 import numpy as np
 import random
 from . import conversion
@@ -20,8 +20,10 @@ def home():
     return 'hello from flask'
 
 
-@main.route('/api/plan/chest')
+@main.post('/api/plan/bench')
 def plan_chest():
+    data = request.get_json()
+    one_rep_max = int(data['oneRepMax'])
     chest_exercises = exercises.chest_list
     variations = exercises.chest_variations
     chosen_exercises = [*random.sample(chest_exercises.items(), k =4)]
@@ -42,7 +44,7 @@ def plan_chest():
             {"name":f'{string_to_add}{exercise[0]}',
             "sets": 3,
             "reps": num_reps,
-            "weight": f'{np.round(difficulty*one_rep_maxes["bench"]*percentage)}kg' })
+            "weight": f'{np.round(difficulty*one_rep_max*percentage)}kg' })
             
     
     return jsonify(final_exercises)

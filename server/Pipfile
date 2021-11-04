@@ -4,12 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
+flask = {extras = ["async"], version = "*"}
 numpy = "*"
 flask-cors = "*"
+asyncio = "*"
 
 [dev-packages]
+
 [scripts]
 dev = "bash -c \"export FLASK_ENV='development' && flask run\""
+
 [requires]
 python_version = "3.10"
